@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+	<definition name="base.template" template="/WEB-INF/spring/jsp/basetemplate.jsp" />
+
+	<definition name="customer.form" extends="base.template">
+		<put-attribute name="body" value="/WEB-INF/spring/jsp/CustomerForm.jsp" />
+	</definition>
+
+	<definition name="customer.success" extends="base.template">
+		<put-attribute name="body" value="/WEB-INF/spring/jsp/CustomerSuccess.jsp" />
+	</definition>
+
+	<definition name="error.500" extends="base.template">
+		<put-attribute name="body" value="/WEB-INF/spring/jsp/error/500.jsp" />
+	</definition>
+</tiles-definitions>
