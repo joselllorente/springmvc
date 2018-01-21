@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+    <!-- Initialization for data source --> 
+	<bean id="dataSourceDriver" class="org.springframework.jdbc.datasource.SimpleDriverDataSource"> 
+		  <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/> 
+		  <property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/> 
+		  <property name="username" value="cursospring"/> 
+		  <property name="password" value="cursospring"/>
+	 </bean>
+	 
+	<bean id="dbUtil" class="utils.DBUtil" init-method="initialize">
+			<property name="dataSource" ref="dataSourceDriver" />
+	</bean>
+ <!-- Configuramos los interceptores de Spring Security, y establecemos los permisos adecuados para nuestras páginas:
+La página de administración tendrá el acceso restringido a los usuarios que tengan el rol “ROLE_ADMIN”.
+El resto de páginas estarán restringidas a usuarios con el rol “ROLE_USER”. -->
+
+<security:global-method-security secured-annotations="enabled"></security:global-method-security> 
+	
+	<!-- No usar Spring Security para esta URL (ya que es la página de Login) -->
+	<security:http pattern="/index*" security="none"/>
+<!-- 	<security:http pattern="/seguridad*" security="none"/> -->
+	
+	<security:http auto-config="true">
+		<security:intercept-url pattern="/administracion.jsp" access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/villancicos.jsp" access="ROLE_USER" />
+		<security:logout logout-success-url="/login.jsp" />
+		<!--  Se indica la página donde se creará el formulario, la página de bienvenida y la de Logout --> 
+ 		<security:form-login login-page='/login.jsp' default-target-url='/index.jsp' always-use-default-target='true'/>
+	</security:http>
+	
+	
+	<!-- Se usan las siguientes queries sobre el Datasource referenciado para obtener los usuarios almacenados y sus grupos -->
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service
+				data-source-ref="dataSourceDriver"
+				users-by-username-query="select username, password, enabled from user_authentication where username=?"
+				authorities-by-username-query="SELECT u1.username, u2.role 
+ 					FROM user_authentication u1 
+ 					INNER JOIN user_authorization u2 
+ 					ON u1.user_id = u2.user_id 
+ 					WHERE u1.username = ?" />
+					
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+<!-- 
+	
+	<bean id="encoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
+	 <security:authentication-manager>
+        <security:authentication-provider>
+        <security:password-encoder ref="encoder" />
+            <security:user-service>
+                <security:user name="rod" 
+                	password="864acff7515e4e419d4266e474ea14a889dce340784038b704a30453e01245eed374f881f3df8e1e" 
+                	authorities="supervisor, teller, user" />
+                <security:user name="dianne" 
+                	password="9992e040d32b6a688ff45b6e53fd0f5f1689c754ecf638cce5f09aa57a68be3c6dae699091e58324" 
+                	authorities="teller, user" />
+                <security:user name="scott" 
+                	password="ab8d9744fa4dd5cee6eb692406fd29564267bad7c606837a70c44583b72e5684ec5f55c9dea869a5" 
+                	authorities="user" />
+            </security:user-service>
+        </security:authentication-provider>
+    </security:authentication-manager>
+	 -->
+	
+
+
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<context:component-scan base-package="com.curso.spring" />
+	<bean id="control" class="com.curso.spring.Control"></bean>
+</beans>
