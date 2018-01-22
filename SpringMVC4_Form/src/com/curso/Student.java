@@ -11,7 +11,7 @@ public class Student implements Serializable {
 	private Integer age;
 	private String name;
 	private Integer id;
-	private String apellidos;
+	private String apellidos; 
 	
 	public Student(String name) {
 		super();

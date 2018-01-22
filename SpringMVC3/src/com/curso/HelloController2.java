@@ -13,7 +13,10 @@ public class HelloController2 {
 	
 //De la ruta que mandes lo que llegue antes del do me lo mandas como parametro
 	@RequestMapping("/{action}.do")
-	public String printHelloGet(ModelMap model, @PathVariable("action") String accion, @RequestParam("parameter") String param) {
+	public String printHelloGet(ModelMap model, 
+			@PathVariable("action") String accion, 
+			@RequestParam("parameter") String param) {
+		
 		System.out.println("printHelloGet entra");
 		if (accion.toUpperCase().equals("GET")){
 			model.addAttribute("message","Action get called with parameter "+param);

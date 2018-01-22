@@ -89,7 +89,7 @@ public class CustomerController {
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(
 				dateFormat, true));

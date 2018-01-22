@@ -31,7 +31,10 @@ public class HelloController {
 	
 	//Para pasar parametros y recogerlos (request, response y sesion)
 	@RequestMapping("/get2.do") //Responde a una peticion get
-	public ModelAndView printHelloGet(ModelMap model, HttpServletRequest req, HttpServletResponse resp, HttpSession ses) {
+	public ModelAndView printHelloGet(ModelMap model, 
+			HttpServletRequest req, 
+			HttpServletResponse resp, 
+			HttpSession ses) {
 		System.out.println("Session:" +ses.getId());
 		String parametro = req.getParameter("parameter");
 		System.out.println("Parameter:" +parametro);

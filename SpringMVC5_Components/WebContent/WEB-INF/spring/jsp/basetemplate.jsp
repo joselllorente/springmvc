@@ -6,10 +6,10 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <!DOCTYPE html>
 <html>
-<c:set var="resourcesBase" value="${pageContext.request.contextPath}/resources" />
-<c:set var="cssBase" value="${resourcesBase}/css" />
-<c:set var="jsBase" value="${resourcesBase}/js" />
-<c:set var="imgBase" value="${resourcesBase}/img" />
+<%-- <c:set var="resourcesBase" value="${pageContext.request.contextPath}/resources" /> --%>
+<%-- <c:set var="cssBase" value="${resourcesBase}/css" /> --%>
+<%-- <c:set var="jsBase" value="${resourcesBase}/js" /> --%>
+<%-- <c:set var="imgBase" value="${resourcesBase}/img" /> --%>
 
 <head>
 <title>Spring MVC</title>

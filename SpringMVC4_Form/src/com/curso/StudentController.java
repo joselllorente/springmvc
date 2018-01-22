@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class StudentController {
+public class StudentController { 
 
    @RequestMapping(value = "/student", method = RequestMethod.GET)
    public ModelAndView student(ModelMap model) {

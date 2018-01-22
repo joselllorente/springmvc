@@ -7,7 +7,7 @@
 <body>
 
 <h2>Student Information</h2>
-<form:form method="POST" action="/springMVC3_Form/addStudent" modelAttribute="myStudent">
+<form:form method="POST" action="/springMVC4_Form/addStudent" modelAttribute="myStudent">
    <table>
     <tr>
         <td><form:label path="name">Name</form:label></td>
